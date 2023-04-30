@@ -1,3 +1,30 @@
+// setCookie, getCookie, and eraseCookie are taken from https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 function updateTime(timeObj, dateObj, ampmObj) {
   var date = new Date()
   var hours = date.getHours()
@@ -26,7 +53,37 @@ function setSearch(search) {
   }
 }
 
-async function wait(s) {await new Promise(r => setTimeout(r, s))}
+function closeSettings() {modal.style.display = "none"}
+
+function saveSettings() {
+  url = imageUrl.value
+  if (url == "") {
+    eraseCookie("image")
+    updateBackground()
+  } else {
+    setCookie("image", url)
+    updateBackground()
+  }
+}
+
+function updateBackground() {
+  var body = document.getElementsByTagName("body")[0]
+  var overlay = document.getElementsByClassName("background-overlay")[0]
+  if (getCookie("image")) {
+    body.style.background = `url("${getCookie('image')}")`
+    body.style.backgroundSize = "cover"
+    overlay.style.display = "block"
+    for (e of document.getElementsByClassName("semi-transparent")) {
+      e.classList.add("transparent-selector")
+    }
+  } else {
+    body.style.background = ""
+    overlay.style.display = "none"
+    for (e of document.getElementsByClassName("semi-transparent")) {
+      e.classList.remove("transparent-selector")
+    }
+  }
+}
 
 var currentSearch = "google"
 var searchOptions = {
@@ -36,9 +93,14 @@ var searchOptions = {
   "brave": {"search": "https://search.brave.com/search?q=", "id": "searchBrave"}
 }
 
+var imageUrl
 var searchBar
+var modal
 window.onload = function() {
-  searchBar = document.getElementsByClassName("search-bar")[0]
+  updateBackground()
+  imageUrl = document.getElementById("imageUrl")
+  searchBar = document.getElementsByClassName("search-bar")[1]
+  modal = document.getElementById("settingsModal")
   var timeObj = document.getElementById("currentTime")
   var dateObj = document.getElementById("currentDate")
   var ampm = document.getElementById("ampm")
@@ -47,14 +109,21 @@ window.onload = function() {
   updateTime(timeObj, dateObj, ampm)
   setInterval(function() {updateTime(timeObj, dateObj, ampm)}, 1000)
 
-  document.addEventListener("keypress", function(event) {
+  document.addEventListener("keydown", function(event) {
     if (event.key == "/") {
       event.preventDefault()
       if (document.activeElement == searchBar) {
         searchBar.value += "/"
       } 
       searchBar.focus()
-    } 
+    } else if (event.ctrlKey && event.key == 'x') {
+      if (modal.style.display == "block") {
+        modal.style.display = "none"
+      } else {
+        modal.style.display = "block"
+        document.getElementById("imageUrl").focus()
+      }
+    }
     else if (event.key == "g" || event.key == "G") {setSearch("google")}
     else if (event.key == "b" || event.key == "B") {setSearch("bing")}
     else if (event.key == "d" || event.key == "D") {setSearch("duckduckgo")}
@@ -73,6 +142,14 @@ window.onload = function() {
     } else if (event.key == 'Escape') {
       searchBar.value = ""
       searchBar.blur()
+    }
+  })
+
+  imageUrl.addEventListener("keydown", function(e) {
+    if (e.altKey && e.key == "s") {
+      saveSettings()
+    } else if (e.altKey && e.key == "c") {
+      closeSettings()
     }
   })
 }
