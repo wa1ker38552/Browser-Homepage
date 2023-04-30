@@ -136,7 +136,7 @@ a:hover {
 }
 
 .save-button {
-  padding: 0.35em 1em 0.35em 1em;
+  padding: 0.4em 1em 0.4em 1em;
   color: var(--text);
   font-family: var(--font);
 }
@@ -158,4 +158,9 @@ a:hover {
 
 .darkened-text {
   color: var(--secondary);
+}
+
+.modal-input {
+  border-width: 2.5px;
+  border-color: var(--secondary);
 }
