@@ -76,12 +76,16 @@ function updateBackground() {
     for (e of document.getElementsByClassName("semi-transparent")) {
       e.classList.add("transparent-selector")
     }
+    document.getElementById("currentDate").classList.add("darkened-text")
+    document.getElementById("currentTime").classList.add("darkened-text")
   } else {
     body.style.background = ""
     overlay.style.display = "none"
     for (e of document.getElementsByClassName("semi-transparent")) {
       e.classList.remove("transparent-selector")
     }
+    document.getElementById("currentDate").classList.remove("darkened-text")
+    document.getElementById("currentTime").classList.remove("darkened-text")
   }
 }
 
