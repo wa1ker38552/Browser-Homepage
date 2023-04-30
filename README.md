@@ -9,7 +9,7 @@ A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, and se
 **d | D** ~ Sets the search engine to DuckDuckGo <br>
 **r | R** ~ Sets the search engine to Brave <br>
 **enter** ~ Searches using the selected engine for {keyword} <br>
-**shift+enter** ~ Directly puts the {keyword} into the search bar. (If it doesn't contain https:// it will add it for you)
-**ctrl+x** ~ Toggles image settings
-**alt+s** ~ Save current image settings
-**alt+c** ~ Close current image settings
+**shift+enter** ~ Directly puts the {keyword} into the search bar. (If it doesn't contain https:// it will add it for you) <br>
+**ctrl+x** ~ Toggles image settings <br>
+**alt+s** ~ Save current image settings (leave it empty to reset) <br>
+**alt+c** ~ Close current image settings <br>
