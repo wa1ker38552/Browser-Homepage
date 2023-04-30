@@ -64,6 +64,7 @@ body {
 .wrapper {
   display: grid;
   grid-gap: 1em;
+  z-index: 999;
 }
 
 #currentDate {
@@ -71,15 +72,15 @@ body {
   margin-left: 0.3em;
 }
 
+
 .search-selector {
   width: auto;
-  height: auto;
   padding: 0.2em 0.5em 0.2em 0.5em;
   font-size: 1em;
   background: var(--secondary);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  border-width: 2px;
+  border-width: 2.5px;
   border-color: var(--secondary)
 }
 
@@ -124,4 +125,33 @@ a {
 
 a:hover {
   color: var(--primary-accent);
+}
+
+.image-settings-container {
+  position: absolute;
+  left: 1em;
+  bottom: 1em;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.save-button {
+  padding: 0.35em 1em 0.35em 1em;
+  color: var(--text);
+  font-family: var(--font);
+}
+
+.image-settings-text {
+  font-size: 1em;
+}
+
+.transparent-selector {
+  background: rgba(66, 66, 66, 0.8);
+}
+
+.background-overlay {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
 }
