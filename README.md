@@ -13,3 +13,5 @@ A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, custom
 **ctrl+x** ~ Toggles image settings <br>
 **alt+s** ~ Save current image settings (leave it empty to reset) <br>
 **alt+c** ~ Close current image settings <br>
+
+![image](https://user-images.githubusercontent.com/100868154/235366890-ff73ccb6-28a6-4768-954a-f54514ca11c5.png)
