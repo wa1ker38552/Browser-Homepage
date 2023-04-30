@@ -35,6 +35,7 @@ var searchOptions = {
 }
 
 var searchBar
+window.location.href = "javascript: function() {}"
 window.onload = function() {
   searchBar = document.getElementsByClassName("search-bar")[0]
   var timeObj = document.getElementById("currentTime")
