@@ -109,6 +109,7 @@ window.onload = function() {
   var dateObj = document.getElementById("currentDate")
   var ampm = document.getElementById("ampm")
 
+  imageUrl.value = getCookie("image")
   searchBar.focus()
   updateTime(timeObj, dateObj, ampm)
   setInterval(function() {updateTime(timeObj, dateObj, ampm)}, 1000)
