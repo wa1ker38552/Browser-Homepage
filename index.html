@@ -9,6 +9,12 @@
   <script src="script.js"></script>
 </head>
 <body class="centered-children">
+  <div class="background-overlay" style="display: none"></div>
+  <div class="image-settings-container" id="settingsModal" style="display: none">
+    <input class="search-bar rounded-borders image-settings-text semi-transparent" type="text" spellcheck="false" autocomplete="off" placeholder="Image URL" id="imageUrl">
+    <button class="search-selector rounded-borders save-button image-settings-text semi-transparent" onclick="saveSettings()">Save <b>⎇S</b></button>
+    <button class="search-selector rounded-borders save-button image-settings-text semi-transparent" onclick="closeSettings()">Cancel <b>⎇C</b></button>
+  </div>
   <div class="wrapper">
     <div class="card-container time-container">
       <div>
@@ -16,29 +22,29 @@
         <span style="font-size: 0.5em; margin-left: -0.8em; color: var(--primary-accent)" id="ampm"></span></div>
       <div id="currentDate"></div>
     </div>
-    <input class="search-bar rounded-borders" placeholder="/" autocomplete="off" spellcheck="false">
+    <input class="search-bar rounded-borders semi-transparent" placeholder="/" autocomplete="off" spellcheck="false">
     <div class="search-selector-container centered-children-vert">
-      <span id="searchGoogle" class="search-selector rounded-borders selected" onclick="setSearch('google')">Google <b>G</b></span>
-      <span id="searchBing" class="search-selector rounded-borders" onclick="setSearch('bing')">Bing <b>B</b></span>
-      <span id="searchDuckduckgo" class="search-selector rounded-borders" onclick="setSearch('duckduckgo')">DuckDuckGo <b>D</b></span>
-      <span id="searchBrave" class="search-selector rounded-borders" onclick="setSearch('brave')">Brave <b>R</b></span>
+      <span id="searchGoogle" class="search-selector rounded-borders semi-transparent selected" onclick="setSearch('google')">Google <b>G</b></span>
+      <span id="searchBing" class="search-selector rounded-borders semi-transparent " onclick="setSearch('bing')">Bing <b>B</b></span>
+      <span id="searchDuckduckgo" class="search-selector rounded-borders semi-transparent" onclick="setSearch('duckduckgo')">DuckDuckGo <b>D</b></span>
+      <span id="searchBrave" class="search-selector rounded-borders semi-transparent" onclick="setSearch('brave')">Brave <b>R</b></span>
     </div>
     <div class="bookmarks-container">
-      <div class="bookmarks rounded-borders">
+      <div class="bookmarks rounded-borders semi-transparent">
         <div class="bookmarks-title">Code</div>
         <a href="https://replit.com/repls">Replit</a>
         <a href="https://github.com">Github</a>
         <a href="https://satckoverflow.com">Stackoverflow</a>
         <a href="https://jsonformatter.curiousconcept.com">JSON</a>
       </div>
-      <div class="bookmarks rounded-borders">
+      <div class="bookmarks rounded-borders semi-transparent">
         <div class="bookmarks-title">Work</div>
         <a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a>
         <a href="https://mvla.instructure.com/">Instructure</a>
         <a href="https://docs.google.com/document/u/1/?tgif=c">Docs</a>
         <a href="https://mvla.aeries.net/student/LoginParent.aspx?page=Dashboard.aspx">Aeries</a>
       </div>
-      <div class="bookmarks rounded-borders">
+      <div class="bookmarks rounded-borders semi-transparent">
         <div class="bookmarks-title">Gaming</div>
         <a href="https://discord.com/channels/@me/">Discord</a>
         <a href="https://roblox.com/home">Roblox</a>
