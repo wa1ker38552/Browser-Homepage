@@ -35,7 +35,7 @@ var searchOptions = {
 }
 
 var searchBar
-window.location.href = "javascript: console.log('refocused!')"
+location.reload()
 window.onload = function() {
   searchBar = document.getElementsByClassName("search-bar")[0]
   var timeObj = document.getElementById("currentTime")
