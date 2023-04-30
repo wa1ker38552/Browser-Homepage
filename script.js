@@ -66,9 +66,32 @@ function saveSettings() {
   }
 }
 
+function changeTheme() {
+  if (getCookie("theme")) {
+    if (getCookie("theme") == "1") {setCookie("theme", "0")}
+    else {setCookie("theme", "1")}
+    setTheme()
+  } else {
+    document.getElementById("currentDate").classList.add("darkened-text")
+    document.getElementById("currentTime").classList.add("darkened-text")
+    setCookie("theme", "1")
+  }
+}
+
+function setTheme() {
+  if (getCookie("theme") == "1") {
+    document.getElementById("currentDate").classList.remove("darkened-text")
+    document.getElementById("currentTime").classList.remove("darkened-text")
+  } else {
+    document.getElementById("currentDate").classList.add("darkened-text")
+    document.getElementById("currentTime").classList.add("darkened-text")
+  }
+}
+
 function updateBackground() {
   var body = document.getElementsByTagName("body")[0]
   var overlay = document.getElementsByClassName("background-overlay")[0]
+  setTheme()
   if (getCookie("image")) {
     body.style.background = `url("${getCookie('image')}")`
     body.style.backgroundSize = "cover"
@@ -76,16 +99,16 @@ function updateBackground() {
     for (e of document.getElementsByClassName("semi-transparent")) {
       e.classList.add("transparent-selector")
     }
-    document.getElementById("currentDate").classList.add("darkened-text")
-    document.getElementById("currentTime").classList.add("darkened-text")
+    //document.getElementById("currentDate").classList.add("darkened-text")
+    //document.getElementById("currentTime").classList.add("darkened-text")
   } else {
     body.style.background = ""
     overlay.style.display = "none"
     for (e of document.getElementsByClassName("semi-transparent")) {
       e.classList.remove("transparent-selector")
     }
-    document.getElementById("currentDate").classList.remove("darkened-text")
-    document.getElementById("currentTime").classList.remove("darkened-text")
+    //document.getElementById("currentDate").classList.remove("darkened-text")
+    //document.getElementById("currentTime").classList.remove("darkened-text")
   }
 }
 
