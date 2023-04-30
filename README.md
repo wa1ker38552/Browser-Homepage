@@ -1,5 +1,5 @@
 # Browser-Homepage
-A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, and search engine choosing.
+A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, custom backgrouns, and search engine choosing.
 
 **Shortcuts** <br>
 **/** ~ Selects the search bar <br>
