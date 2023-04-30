@@ -14,4 +14,6 @@ A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, custom
 **alt+s** ~ Save current image settings (leave it empty to reset) <br>
 **alt+c** ~ Close current image settings <br>
 
+Tip: Click the time to change the color theme for it!
+
 ![image](https://user-images.githubusercontent.com/100868154/235366890-ff73ccb6-28a6-4768-954a-f54514ca11c5.png)
