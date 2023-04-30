@@ -53,6 +53,8 @@ function setSearch(search) {
   }
 }
 
+async function wait(s) {await new Promise(r => setTimeout(r, s))}
+
 var currentSearch = "google"
 var searchOptions = {
   "google": {"search": "https://google.com/search?q=", "id": "searchGoogle"},
@@ -65,7 +67,8 @@ var searchBar
 window.onload = function() {
   if (getCookie("refresh") == "") {
     eraseCookie("refresh")
-    location.reload()
+    wait(100)
+      .then(x => {location.reload()})
   } else {
     setCookie("refresh")
   }
