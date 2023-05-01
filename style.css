@@ -95,7 +95,7 @@ body {
 
 .bookmarks-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   height: auto;
   grid-gap: 1em;
 }
