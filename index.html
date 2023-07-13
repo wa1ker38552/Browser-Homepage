@@ -15,6 +15,10 @@
       <div class="section-title">Settings</div>
       <input type="text" autocomplete="off" spellcheck="false" placeholder="Background URL" id="background">
       <textarea autocomplete="off" spellcheck="false" id="linkConfig"></textarea>
+      <div style="display: flex; align-items: center;">
+        <input type="color" id="colorPicker" value="">
+        <div class="color-indicator" id="colorIndicator"></div>
+      </div>
       <div>
         <button onclick="saveSettings()">Save</button>
         <button onclick="closeSettingsModal()">Cancel</button>
