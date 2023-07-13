@@ -144,7 +144,7 @@ input[type="color"] {
 #modal {
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   z-index: 9999;
 } 
