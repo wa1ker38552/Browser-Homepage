@@ -2,61 +2,41 @@
 <html>
 <head>
   <title>Homepage</title>
-  <link rel="icon" href="home-icon.png">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code">
   <script src="script.js"></script>
 </head>
 <body class="centered-children">
-  <div class="background-overlay" style="display: none"></div>
-  <div class="image-settings-container" id="settingsModal" style="display: none">
-    <input class="search-bar rounded-borders image-settings-text semi-transparent modal-input" type="text" spellcheck="false" autocomplete="off" placeholder="Image URL" id="imageUrl">
-    <button class="search-selector rounded-borders save-button image-settings-text semi-transparent" onclick="saveSettings()">Save <b>⎇S</b></button>
-    <button class="search-selector rounded-borders save-button image-settings-text semi-transparent" onclick="closeSettings()">Cancel <b>⎇C</b></button>
+  <div class="background-overlay" id="overlay"></div>
+  <div class="centered-children" id="modal" style="display: none">
+    <div class="modal">
+      <div class="section-title">Settings</div>
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="Background URL" id="background">
+      <textarea autocomplete="off" spellcheck="false" id="linkConfig"></textarea>
+      <div>
+        <button onclick="saveSettings()">Save</button>
+        <button onclick="closeSettingsModal()">Cancel</button>
+      </div>
+    </div>
   </div>
   <div class="wrapper">
-    <div class="card-container time-container">
-      <div>
-        <span id="currentTime" onclick="changeTheme()"></span>
-        <span style="font-size: 0.5em; margin-left: -0.8em; color: var(--primary-accent)" id="ampm"></span></div>
-      <div id="currentDate"></div>
+    <div>
+      <span id="time"></span><span id="ampm"></span>
+      <div id="date"></div>
     </div>
-    <input class="search-bar rounded-borders semi-transparent" placeholder="/" autocomplete="off" spellcheck="false">
-    <div class="search-selector-container centered-children-vert">
-      <span id="searchGoogle" class="search-selector rounded-borders semi-transparent selected" onclick="setSearch('google')">Google <b>G</b></span>
-      <span id="searchBing" class="search-selector rounded-borders semi-transparent " onclick="setSearch('bing')">Bing <b>B</b></span>
-      <span id="searchDuckduckgo" class="search-selector rounded-borders semi-transparent" onclick="setSearch('duckduckgo')">DuckDuckGo <b>D</b></span>
-      <span id="searchBrave" class="search-selector rounded-borders semi-transparent" onclick="setSearch('brave')">Brave <b>R</b></span>
+    <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 0.5em">
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="/" id="search">
+      <button class="settings-button centered-children" onclick="openSettingsModal()"><img class="settings-icon" src="assets/settings.png"></button>
     </div>
-    <div class="bookmarks-container">
-      <div class="bookmarks rounded-borders semi-transparent">
-        <div class="bookmarks-title">Code</div>
-        <a href="https://replit.com/repls">Replit</a>
-        <a href="https://github.com">Github</a>
-        <a href="https://stackoverflow.com">Stackoverflow</a>
-        <a href="https://jsonformatter.curiousconcept.com">JSON</a>
-      </div>
-      <div class="bookmarks rounded-borders semi-transparent">
-        <div class="bookmarks-title">Work</div>
-        <a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a>
-        <a href="https://mvla.instructure.com/">Instructure</a>
-        <a href="https://docs.google.com/document/u/1/?tgif=c">Docs</a>
-        <a href="https://mvla.aeries.net/student/LoginParent.aspx?page=Dashboard.aspx">Aeries</a>
-      </div>
-      <div class="bookmarks rounded-borders semi-transparent">
-        <div class="bookmarks-title">Gaming</div>
-        <a href="https://discord.com/channels/@me/">Discord</a>
-        <a href="https://roblox.com/home">Roblox</a>
-        <a href="https://rolimons.com">Rolimons</a>
-      </div>
-      <div class="bookmarks rounded-borders semi-transparent">
-        <div class="bookmarks-title">Misc</div>
-        <a href="https://youtube.com">Youtube</a>
-        <a href="https://monkeytype.com/">Monkeytype</a>
-        <a href="https://www.cdnfonts.com/">CDN Fonts</a>
-      </div>
+    <div class="search-options-container">
+      <button onclick="setSearch(0)" class="selected">Google <b>G</b></button>
+      <button onclick="setSearch(1)">Bing <b>B</b></button>
+      <button onclick="setSearch(2)">DuckDuckGo <b>D</b></button>
+      <button onclick="setSearch(3)">Brave <b>R</b></button>
     </div>
+    <div class="quick-links-container" style="grid-template-columns: repeat(3, 1fr)"></div>
   </div>
 </body>
 </html>
