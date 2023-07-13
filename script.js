@@ -42,7 +42,7 @@ function getCookie(name) {
 function setBackground(url) {
   const body = document.getElementsByTagName("body")[0]
   const overlay = document.getElementById("overlay")
-  if (url.value == null || url.value == "") {
+  if (url == null || url == "") {
     overlay.style.background = ""
     body.style.background = ""
   } else {
@@ -56,8 +56,12 @@ function setBackground(url) {
 function saveSettings() {
   const background = document.getElementById("background")
   const linkConfig = document.getElementById("linkConfig")
+  const colorPicker = document.getElementById("colorPicker")
   setBackground(background.value)
   setCookie("background", background.value)
+  setCookie("accent", colorPicker.value)
+  document.documentElement.style.setProperty("--accent", getCookie("accent"))
+  
   try {
     setLinks(JSON.parse(linkConfig.value))
     setCookie("linkConfig", JSON.stringify(linkConfig.value))
@@ -116,6 +120,7 @@ function setSearch(index) {
   document.getElementsByClassName("search-options-container")[0].children[index].classList.add("selected")
 }
 
+
 window.onload = function() {
   const timeObj = document.getElementById("time")
   const dateObj = document.getElementById("date")
@@ -123,6 +128,18 @@ window.onload = function() {
   const searchBar = document.getElementById("search")
   const modalBackground = document.getElementById("modal")
   const modal = document.getElementById("modal")
+  const colorPicker = document.getElementById("colorPicker")
+  const colorIndicator = document.getElementById("colorIndicator")
+
+  if (getCookie("accent")) {
+    document.documentElement.style.setProperty("--accent", getCookie("accent"))
+    colorPicker.value = getComputedStyle(document.documentElement).getPropertyValue("--accent")
+    colorIndicator.innerHTML = getComputedStyle(document.documentElement).getPropertyValue("--accent")
+  } else {
+    colorPicker.value = getComputedStyle(document.documentElement).getPropertyValue("--accent")
+    colorIndicator.innerHTML = getComputedStyle(document.documentElement).getPropertyValue("--accent")
+  }
+
 
   if (getCookie("linkConfig")) {setLinks(JSON.parse(JSON.parse(getCookie("linkConfig"))))}
   else {setLinks(defaultLinks)}
@@ -131,6 +148,10 @@ window.onload = function() {
   
   updateTime(timeObj, dateObj, ampmObj)
   setInterval(function() {updateTime(timeObj, dateObj, ampmObj)}, 1000)
+
+  colorPicker.addEventListener("input", function(e) {
+    colorIndicator.innerHTML = colorPicker.value
+  })
 
   modalBackground.addEventListener("click", function(event) {
     if (event.target == modalBackground) {closeSettingsModal()}
