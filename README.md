@@ -22,4 +22,5 @@ Links are in JSON in the following format:
 ```
 If you put in invalid JSON, it will revert to your last saved changes. All links data and background data is stored in cookies. If you data mysteriously resets its because you cleared all cookies or the date is past [2038](https://en.wikipedia.org/wiki/Year_2038_problem)
 
-![image](https://user-images.githubusercontent.com/100868154/235366890-ff73ccb6-28a6-4768-954a-f54514ca11c5.png)
+![image](https://github.com/wa1ker38552/Browser-Homepage/assets/100868154/fa919676-aea2-4deb-80fb-ae4ed045451e)
+
