@@ -42,7 +42,7 @@ function getCookie(name) {
 function setBackground(url) {
   const body = document.getElementsByTagName("body")[0]
   const overlay = document.getElementById("overlay")
-  if (url.value == "") {
+  if (url.value == null || url.value == "") {
     overlay.style.background = ""
     body.style.background = ""
   } else {
