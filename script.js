@@ -62,7 +62,7 @@ function saveSettings() {
     setLinks(JSON.parse(linkConfig.value))
     setCookie("linkConfig", JSON.stringify(linkConfig.value))
   } catch {
-    if (getCookie("linkConfig")) {linkConfig.value = getCookie("linkConfig")} 
+    if (getCookie("linkConfig")) {linkConfig.value = JSON.parse(getCookie("linkConfig"))} 
     else {linkConfig.value = defaultLinks}
   }
 }
