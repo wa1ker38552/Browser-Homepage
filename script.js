@@ -1,13 +1,31 @@
-// setCookie, getCookie, and eraseCookie are taken from https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+const defaultLinks = {
+  "Code": [
+    {"href": "https://replit.com/repls", "title": "Replit"},
+    {"href": "https://github.com", "title": "Github"},
+    {"href": "https://stackoverflow.com", "title": "Stackoverflow"}
+  ],
+  "Work": [
+    {"href": "https://mvla.instructure.com", "title": "Instructure"},
+    {"href": "https://mvla.aeries.net/student/LoginParent.aspx?page=Dashboard.aspx", "title": "Aeries"},
+    {"href": "https://docs.google.com", "title": "Docs"},
+    {"href": "https://mail.google.com/mail/u/1/#inbox", "title": "Mail"}
+  ],
+  "Gaming": [
+    {"href": "https://discord.com/app", "title": "Discord"},
+    {"href": "https://roblox.com/home", "title": "Roblox"},
+    {"href": "https://rolimons.com", "title": "Rolimons"}
+  ]
+}
+const searchEngines = ["https://google.com/search?q=", "https://bing.com/search?q=", "https://duckduckgo.com/?q=", "https://search.brave.com/search?q="]
+var selectedEngine = 0
 
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days*24*60*60*1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+function openSettingsModal() {document.getElementById("modal").style.display = ""}
+function closeSettingsModal() {document.getElementById("modal").style.display = "none"}
+
+// getCookie is taken from https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+function setCookie(name, value) {
+  expires = "; expires=" + new Date(2147483647 * 1000).toUTCString()
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/"
 }
 
 function getCookie(name) {
@@ -21,15 +39,62 @@ function getCookie(name) {
   return null;
 }
 
-function eraseCookie(name) {   
-  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+function setBackground(url) {
+  const body = document.getElementsByTagName("body")[0]
+  const overlay = document.getElementById("overlay")
+  if (url.value == "") {
+    overlay.style.background = ""
+    body.style.background = ""
+  } else {
+    overlay.style.background = "rgba(255, 255, 255, 0.2)"
+    body.style.background = `url('${url}')`
+    body.style.backgroundSize = "cover"
+  }
+  document.getElementById("background").value = url
+}
+
+function saveSettings() {
+  const background = document.getElementById("background")
+  const linkConfig = document.getElementById("linkConfig")
+  setBackground(background.value)
+  setCookie("background", background.value)
+  try {
+    setLinks(JSON.parse(linkConfig.value))
+    setCookie("linkConfig", JSON.stringify(linkConfig.value))
+  } catch {
+    if (getCookie("linkConfig")) {linkConfig.value = getCookie("linkConfig")} 
+    else {linkConfig.value = defaultLinks}
+  }
+}
+
+function setLinks(json) {
+  const container = document.getElementsByClassName("quick-links-container")[0]
+  container.style.gridTemplateColumns = `repeat(${Object.keys(json).length}, 1fr)`
+  container.innerHTML = ""
+  for (let key in json) {
+    const section = document.createElement("div")
+    const sectionTitle = document.createElement("div")
+    const linkContainer = document.createElement("div")
+    section.className = "quick-links-section"
+    sectionTitle.className = "section-title"
+    sectionTitle.innerHTML = key
+    for (let link of json[key]) {
+      const a = document.createElement("a")
+      a.href = link.href
+      a.innerHTML = link.title
+      linkContainer.append(a)
+    }
+    section.append(sectionTitle, linkContainer)
+    container.append(section)
+  }
+  document.getElementById("linkConfig").value = JSON.stringify(json, null, 2)
 }
 
 function updateTime(timeObj, dateObj, ampmObj) {
-  var date = new Date()
-  var hours = date.getHours()
-  var minutes = date.getMinutes()
-  var ampm = hours >= 12 ? 'PM' : 'AM'
+  let date = new Date()
+  let hours = date.getHours()
+  let minutes = date.getMinutes()
+  let ampm = hours >= 12 ? 'PM' : 'AM'
   
   hours = hours % 12
   hours = hours ? hours : 12
@@ -45,139 +110,56 @@ function updateTime(timeObj, dateObj, ampmObj) {
   }
 }
 
-function setSearch(search) {
-  if (document.activeElement != searchBar) {
-    document.getElementById(searchOptions[currentSearch].id).classList.remove("selected")
-    currentSearch = search
-    document.getElementById(searchOptions[search].id).classList.add("selected")
-  }
+function setSearch(index) {
+  document.getElementsByClassName("selected")[0].classList.remove("selected")
+  selectedEngine = index
+  document.getElementsByClassName("search-options-container")[0].children[index].classList.add("selected")
 }
 
-function closeSettings() {modal.style.display = "none"}
-
-function saveSettings() {
-  url = imageUrl.value
-  if (url == "") {
-    eraseCookie("image")
-    updateBackground()
-  } else {
-    setCookie("image", url)
-    updateBackground()
-  }
-}
-
-function changeTheme() {
-  if (getCookie("theme")) {
-    if (getCookie("theme") == "1") {setCookie("theme", "0")}
-    else {setCookie("theme", "1")}
-    setTheme()
-  } else {
-    document.getElementById("currentDate").classList.add("darkened-text")
-    document.getElementById("currentTime").classList.add("darkened-text")
-    setCookie("theme", "1")
-  }
-}
-
-function setTheme() {
-  if (getCookie("theme") == "1") {
-    document.getElementById("currentDate").classList.remove("darkened-text")
-    document.getElementById("currentTime").classList.remove("darkened-text")
-  } else {
-    document.getElementById("currentDate").classList.add("darkened-text")
-    document.getElementById("currentTime").classList.add("darkened-text")
-  }
-}
-
-function updateBackground() {
-  var body = document.getElementsByTagName("body")[0]
-  var overlay = document.getElementsByClassName("background-overlay")[0]
-  setTheme()
-  if (getCookie("image")) {
-    body.style.background = `url("${getCookie('image')}")`
-    body.style.backgroundSize = "cover"
-    overlay.style.display = "block"
-    for (e of document.getElementsByClassName("semi-transparent")) {
-      e.classList.add("transparent-selector")
-    }
-    //document.getElementById("currentDate").classList.add("darkened-text")
-    //document.getElementById("currentTime").classList.add("darkened-text")
-  } else {
-    body.style.background = ""
-    overlay.style.display = "none"
-    for (e of document.getElementsByClassName("semi-transparent")) {
-      e.classList.remove("transparent-selector")
-    }
-    //document.getElementById("currentDate").classList.remove("darkened-text")
-    //document.getElementById("currentTime").classList.remove("darkened-text")
-  }
-}
-
-var currentSearch = "google"
-var searchOptions = {
-  "google": {"search": "https://google.com/search?q=", "id": "searchGoogle"},
-  "bing": {"search": "https://bing.com/search?q=", "id": "searchBing"},
-  "duckduckgo": {"search": "https://duckduckgo.com/?q=", "id": "searchDuckduckgo"},
-  "brave": {"search": "https://search.brave.com/search?q=", "id": "searchBrave"}
-}
-
-var imageUrl
-var searchBar
-var modal
 window.onload = function() {
-  updateBackground()
-  imageUrl = document.getElementById("imageUrl")
-  searchBar = document.getElementsByClassName("search-bar")[1]
-  modal = document.getElementById("settingsModal")
-  var timeObj = document.getElementById("currentTime")
-  var dateObj = document.getElementById("currentDate")
-  var ampm = document.getElementById("ampm")
+  const timeObj = document.getElementById("time")
+  const dateObj = document.getElementById("date")
+  const ampmObj = document.getElementById("ampm")
+  const searchBar = document.getElementById("search")
+  const modalBackground = document.getElementById("modal")
+  const modal = document.getElementById("modal")
 
-  imageUrl.value = getCookie("image")
-  searchBar.focus()
-  updateTime(timeObj, dateObj, ampm)
-  setInterval(function() {updateTime(timeObj, dateObj, ampm)}, 1000)
+  if (getCookie("linkConfig")) {setLinks(JSON.parse(JSON.parse(getCookie("linkConfig"))))}
+  else {setLinks(defaultLinks)}
+
+  if (getCookie("background")) {setBackground(getCookie("background"))}
+  
+  updateTime(timeObj, dateObj, ampmObj)
+  setInterval(function() {updateTime(timeObj, dateObj, ampmObj)}, 1000)
+
+  modalBackground.addEventListener("click", function(event) {
+    if (event.target == modalBackground) {closeSettingsModal()}
+  })
 
   document.addEventListener("keydown", function(event) {
-    if (event.key == "/") {
+    if (event.key == "/" && document.activeElement != document.getElementById("linkConfig")) {
       event.preventDefault()
-      if (document.activeElement == searchBar) {
-        searchBar.value += "/"
-      } 
+      if (document.activeElement == searchBar) {searchBar.value += "/"} 
       searchBar.focus()
-    } else if (event.ctrlKey && event.key == 'x') {
-      if (modal.style.display == "block") {
-        modal.style.display = "none"
-      } else {
-        modal.style.display = "block"
-        document.getElementById("imageUrl").focus()
-      }
+    } else if (event.ctrlKey && event.key == "x") {
+      if (modal.style.display == "none") {openSettingsModal()}
+      else {closeSettingsModal()}
     }
-    else if (event.key == "g" || event.key == "G") {setSearch("google")}
-    else if (event.key == "b" || event.key == "B") {setSearch("bing")}
-    else if (event.key == "d" || event.key == "D") {setSearch("duckduckgo")}
-    else if (event.key == "r" || event.key == "R") {setSearch("brave")}
+    else if ((event.key == "g" || event.key == "G") && document.activeElement != searchBar) {setSearch(0)}
+    else if ((event.key == "b" || event.key == "B") && document.activeElement != searchBar) {setSearch(1)}
+    else if ((event.key == "d" || event.key == "D") && document.activeElement != searchBar) {setSearch(2)}
+    else if ((event.key == "r" || event.key == "R") && document.activeElement != searchBar) {setSearch(3)}
   })
 
-  searchBar.addEventListener('keydown', function onEvent(event) {
+  searchBar.addEventListener("keydown", function(event) {
     if (event.shiftKey && event.key === "Enter") {
-      if (searchBar.value.slice(0, 8) != "https://") {
-        window.location.href = `https://${searchBar.value}`
-      } else {
-        window.location.href = searchBar.value
-      }
-    } else if (event.key === "Enter") {
-      window.location.href = searchOptions[currentSearch].search+searchBar.value
-    } else if (event.key == 'Escape') {
+      if (searchBar.value.slice(0, 8) == "https://") {window.location.href = searchBar.value} 
+      else {window.location.href = `https://${searchBar.value}`}
+    }
+    else if (event.key == "Enter") {window.location.href = searchEngines[selectedEngine]+searchBar.value}
+    else if (event.key == 'Escape') {
       searchBar.value = ""
       searchBar.blur()
-    }
-  })
-
-  imageUrl.addEventListener("keydown", function(e) {
-    if (e.altKey && e.key == "s") {
-      saveSettings()
-    } else if (e.altKey && e.key == "c") {
-      closeSettings()
     }
   })
 }
