@@ -6,7 +6,7 @@
 body {
   height: 100vh;
   margin: 0;
-  font-family: "Fira Code";
+  font-family: var(--font-family);
   color: var(--text);
   background: var(--background);
   user-select: none;
@@ -24,7 +24,7 @@ input, button, textarea, .quick-links-section, .modal {
   border-style: solid;
   border-width: 3px;
   font-size: 1em;
-  font-family: "Fira Code";
+  font-family: var(--font-family);
   color: var(--text);
   box-sizing: border-box;
   transition: 0.3s ease-in-out;
