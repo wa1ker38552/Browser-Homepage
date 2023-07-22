@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Homepage</title>
+  <title>Homepage</title>  
   <link rel="icon" href="assets/icon.png">
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code">
+  <link id="customStylesheet" rel="stylesheet" href="">
   <script src="script.js"></script>
 </head>
 <body class="centered-children">
   <div class="background-overlay" id="overlay"></div>
   <div class="centered-children" id="modal" style="display: none">
     <div class="modal">
-      <div class="section-title">Settings</div>
       <input type="text" autocomplete="off" spellcheck="false" placeholder="Background URL" id="background">
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="Stylesheet URL" id="stylesheet">
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="Font face name" id="fontFace">
       <textarea autocomplete="off" spellcheck="false" id="linkConfig"></textarea>
       <div style="display: flex; align-items: center;">
         <input type="color" id="colorPicker" value="">
