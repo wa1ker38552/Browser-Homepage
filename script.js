@@ -65,6 +65,8 @@ function saveSettings() {
   if (stylesheetConfig.value != "") {
     setStylesheet(stylesheetConfig.value, fontFace.value)
   } else {
+    setCookie("customStylesheet", defaultStylesheet)
+    setCookie("customFontFace", defaultFont)
     document.documentElement.style.setProperty("--font-family", defaultFont)
     customStylesheet.href = defaultStylesheet
     stylesheetConfig.value = defaultStylesheet
