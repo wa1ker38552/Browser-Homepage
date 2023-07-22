@@ -196,7 +196,10 @@ window.onload = function() {
   })
 
   document.addEventListener("keydown", function(event) {
-    if (event.key == "/" && document.activeElement != document.getElementById("linkConfig")) {
+    if (event.key == "/" && document.activeElement != document.getElementById("linkConfig")
+                         && document.activeElement != document.getElementById("background")
+                         && document.activeElement != document.getElementById("stylesheet")
+                         && document.activeElement != document.getElementById("fontFace")) {
       event.preventDefault()
       if (document.activeElement == searchBar) {searchBar.value += "/"} 
       searchBar.focus()
