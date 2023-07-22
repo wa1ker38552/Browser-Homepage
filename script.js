@@ -17,6 +17,8 @@ const defaultLinks = {
   ]
 }
 const searchEngines = ["https://google.com/search?q=", "https://bing.com/search?q=", "https://duckduckgo.com/?q=", "https://search.brave.com/search?q="]
+const defaultStylesheet = "https://fonts.googleapis.com/css?family=Fira Code"
+const defaultFont = "Fira Code"
 var selectedEngine = 0
 
 function openSettingsModal() {document.getElementById("modal").style.display = ""}
@@ -57,6 +59,18 @@ function saveSettings() {
   const background = document.getElementById("background")
   const linkConfig = document.getElementById("linkConfig")
   const colorPicker = document.getElementById("colorPicker")
+  const stylesheetConfig = document.getElementById("stylesheet")
+  const fontFace = document.getElementById("fontFace")
+  
+  if (stylesheetConfig.value != "") {
+    setStylesheet(stylesheetConfig.value, fontFace.value)
+  } else {
+    document.documentElement.style.setProperty("--font-family", defaultFont)
+    customStylesheet.href = defaultStylesheet
+    stylesheetConfig.value = defaultStylesheet
+    fontFace.value = defaultFont
+  }
+  
   setBackground(background.value)
   setCookie("background", background.value)
   setCookie("accent", colorPicker.value)
@@ -69,6 +83,13 @@ function saveSettings() {
     if (getCookie("linkConfig")) {linkConfig.value = JSON.parse(getCookie("linkConfig"))} 
     else {linkConfig.value = defaultLinks}
   }
+}
+
+function setStylesheet(sheetUrl, fontFace) {
+  document.getElementById("customStylesheet").href = sheetUrl
+  document.documentElement.style.setProperty("--font-family", fontFace)
+  setCookie("customStylesheet", sheetUrl)
+  setCookie("customFontFace", fontFace)
 }
 
 function setLinks(json) {
@@ -130,6 +151,9 @@ window.onload = function() {
   const modal = document.getElementById("modal")
   const colorPicker = document.getElementById("colorPicker")
   const colorIndicator = document.getElementById("colorIndicator")
+  const sheetUrl = document.getElementById("stylesheet")
+  const fontFace = document.getElementById("fontFace")
+  const customStylesheet = document.getElementById("customStylesheet")
 
   if (getCookie("accent")) {
     document.documentElement.style.setProperty("--accent", getCookie("accent"))
@@ -138,6 +162,18 @@ window.onload = function() {
   } else {
     colorPicker.value = getComputedStyle(document.documentElement).getPropertyValue("--accent")
     colorIndicator.innerHTML = getComputedStyle(document.documentElement).getPropertyValue("--accent")
+  }
+
+  if (getCookie("customStylesheet")) {
+    document.documentElement.style.setProperty("--font-family", getCookie("customFontFace"))
+    customStylesheet.href = getCookie("customStylesheet")
+    sheetUrl.value = getCookie("customStylesheet")
+    fontFace.value = getCookie("customFontFace")
+  } else {
+    document.documentElement.style.setProperty("--font-family", defaultFont)
+    customStylesheet.href = defaultStylesheet
+    sheetUrl.value = defaultStylesheet
+    fontFace.value = defaultFont
   }
 
 
