@@ -147,6 +147,7 @@ input[type="color"] {
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   z-index: 9999;
+  overflow: hidden;
 } 
 
 .modal {
@@ -168,4 +169,24 @@ input[type="color"] {
 .color-indicator {
   font-size: 1em;
   margin-left: 0.5em;
+}
+
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fade-out {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@keyframes move-up {
+  from {margin-top: 100vh;}
+  to {margin-top: 0;}
+}
+
+@keyframes move-down {
+  from {margin-top: 0;}
+  to {margin-top: 100vh;}
 }
