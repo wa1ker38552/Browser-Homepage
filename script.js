@@ -21,8 +21,25 @@ const defaultStylesheet = "https://fonts.googleapis.com/css?family=Fira Code"
 const defaultFont = "Fira Code"
 var selectedEngine = 0
 
-function openSettingsModal() {document.getElementById("modal").style.display = ""}
-function closeSettingsModal() {document.getElementById("modal").style.display = "none"}
+function animateOpenModal(m) {
+  m.style.display = ""
+  m.style.opacity = "1"
+  m.style.background = "rgba(0, 0, 0, 0.5)"
+  m.style.animation = "fade-in 0.3s"
+  m.children[0].style.animation = "move-up 0.3s"
+}
+
+function animateCloseModal(m) {
+  setTimeout(function() {
+    m.style.display = "none"
+  }, 301)
+  m.children[0].style.animation = "move-down 0.3s"
+  m.style.animation = "fade-out 0.3s"
+  m.style.opacity = 0
+}
+
+function openSettingsModal() {animateOpenModal(document.getElementById("modal"))}
+function closeSettingsModal() {animateCloseModal(document.getElementById("modal"))}
 
 // getCookie is taken from https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
 function setCookie(name, value) {
