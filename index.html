@@ -16,7 +16,7 @@
     <div id="backgroundOverlay"></div>
     <div id="modal" style="display: none" class="centered-children">
       <div class="modal">
-        <div class="title">Settings</div>
+        <div class="title centered-vertically" style="position: relative">Settings<img class="close-button" onclick="closeSettingsModal()" src="assets/icon_close.png"></div>
         <div style="display: grid; grid-template-columns: 1fr auto">
           <input id="backgroundInput" style="border-radius: 5px 0 0 5px" class="settings-input" type="text" placeholder="Background URL" autocomplete="off" spellcheck="false">
           <button style="border-radius: 0 5px 5px 0" class="settings-input settings-button centered-vertically" onclick="setBackground()">
@@ -78,9 +78,10 @@
             <input type="range" id="cardsWidth" min="20" max="60">
           </div>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 1em">
           <button class="settings-input selection-button centered-children" style="gap: 0.5em" onclick="openImpexpModal(0)"><img src="assets/icon_import.png">Import Settings</button>
           <button class="settings-input selection-button centered-children" style="gap: 0.5em" onclick="openImpexpModal(1)"><img src="assets/icon_export.png">Export Settings</button>
+          <button class="settings-input selection-button centered-children" style="gap: 0.5em" onclick="resetSettings()"><img src="assets/icon_sync.png">Reset Settings</button>
         </div>
       </div>
     </div>
