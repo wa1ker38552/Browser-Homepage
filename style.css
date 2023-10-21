@@ -330,3 +330,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background: rgba(var(--card-color-r), var(--card-color-g), var(--card-color-b),  calc(var(--accent-opacity) + 0.2));
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
+
+.successful-copy {
+  background: var(--text);
+  color: rgba(var(--card-color-r), var(--card-color-g), var(--card-color-b), var(--accent-opacity));
+}
