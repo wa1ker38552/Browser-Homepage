@@ -106,7 +106,12 @@ function importSettings() {
     data = JSON.parse(localStorage.getItem("settingsData"))
     for (let key in data) {settings.push(data[key])}
     loadGlobals(settings)
-    loadBackground((localStorage.getItem("background") != null) ? localStorage.getItem("background") : DEFAULT_BACKGROUND)
+    if (localStorage.getItem("background") != "null") {
+      loadBackground(localStorage.getItem("background"))
+      document.querySelector("#backgroundInput").value = localStorage.getItem("background")
+    } else {
+      loadBackground(DEFAULT_BACKGROUND)
+    }
   } catch (Exception) {}
 }
 
@@ -123,7 +128,6 @@ function openImpexpModal(type) {
 function closeImpexpModal() {
   animateCloseModal(document.querySelector("#impexpModal"))
 }
-
 
 function initializeBackgroundFilters() {
   const bgBrightness = document.querySelector("#bgBrightness")
@@ -148,7 +152,23 @@ function initializeBackgroundFilters() {
 }
 
 function setBackground() {
-  loadBackground(document.querySelector("#backgroundInput").value)
+  const input = document.querySelector("#backgroundInput")
+  if (input.value.length == 0) {
+    localStorage.removeItem("background")
+    document.querySelector("#backgroundOverlay").style.background = `url('${DEFAULT_BACKGROUND}')`
+    document.querySelector("#backgroundOverlay").style.backgroundSize = getCss("--background-cover")
+  } else {
+    loadBackground(input.value)
+  }
+}
+
+function resetSettings() {
+  try {
+    localStorage.removeItem("background")
+    localStorage.removeItem("settingsData")
+  } catch (Exception) {}
+  loadBackground(DEFAULT_BACKGROUND)
+  loadGloabls(DEFAULT_THEME)
 }
 
 function initializeBackground() {
