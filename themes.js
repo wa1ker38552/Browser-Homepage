@@ -152,7 +152,12 @@ function setBackground() {
 }
 
 function initializeThemes() {
-  loadBackground((localStorage.getItem("background") != null) ? localStorage.getItem("background") : DEFAULT_BACKGROUND)
+  if (localStorage.getItem("background") != null) {
+    loadBackground(localStorage.getItem("background"))
+    document.querySelector("#backgroundInput").value = localStorage.getItem("background")
+  } else {
+    loadBackground(DEFAULT_BACKGROUND)
+  }
   if (localStorage.getItem("settingsData") != null) {
     let settings = []
     let data = JSON.parse(localStorage.getItem("settingsData"))
