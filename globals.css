@@ -1,8 +1,8 @@
 :root {
   --card-color: #ffffff;
-  --background-overlay: #000000;
+  --background-overlay: #808080;
   
-  --background-overlay-opacity: 1;
+  --background-overlay-opacity: 0.3;
   --background-overlay-brightness: 1;
   --background-overlay-saturation: 1;
   --background-overlay-blur: 0px;
