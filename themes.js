@@ -92,7 +92,7 @@ function exportSettings() {
 
 function copyExport() {
   navigator.clipboard.writeText(document.querySelector("#inpexpText").value)
-  document.querySelector("#exportButtons").children[0].style.background = "limegreen"
+  document.querySelector("#exportButtons").children[0].classList.add("successful-copy")
 }
 
 function importSettings() {
