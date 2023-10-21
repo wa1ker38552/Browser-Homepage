@@ -1,5 +1,7 @@
-# Browser-Homepage v2.0
+# Browser-Homepage v3.0
 A minimalistic custom homepage for myself. Includes shortcuts, bookmarks, custom backgrouns, and search engine choosing.
+
+v2 is located in `/Legacy/`
 
 **Shortcuts** <br>
 **/** ~ Selects the search bar <br>
