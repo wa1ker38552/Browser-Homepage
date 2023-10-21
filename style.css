@@ -44,6 +44,7 @@ input[type="text"], textarea {
   padding: 0.5em !important;
   font-family: 'Nunito Sans';
   font-weight: lighter;
+  transition: background 0.3s ease-in-out, margin-left 0.3s ease-in-out;
 }
 
 input[type="text"]:focus:not(.settings-input) {
@@ -134,7 +135,7 @@ input[type="color"] {
   width: 100%;
   padding: 1em;
   border-radius: 10px;
-  transition: 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
   box-sizing: border-box;
 }
 
