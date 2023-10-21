@@ -1,7 +1,7 @@
 const DEFAULT_THEME = [
   "#ffffff",
   "#808080",
-  "1",
+  "0.3",
   "1",
   "1", 
   "0px",
@@ -163,12 +163,12 @@ function setBackground() {
 }
 
 function resetSettings() {
-  try {
-    localStorage.removeItem("background")
-    localStorage.removeItem("settingsData")
-  } catch (Exception) {}
+  localStorage.removeItem("background")
+  localStorage.removeItem("settingsData")
   loadBackground(DEFAULT_BACKGROUND)
-  loadGloabls(DEFAULT_THEME)
+  loadGlobals(DEFAULT_THEME)
+  initializeBackgroundFilters()
+  initializeThemeFilters()
 }
 
 function initializeBackground() {
@@ -193,12 +193,7 @@ function initializeGlobals() {
   }
 }
 
-function initializeThemes() {
-  initializeBackground()
-  initializeGlobals()
-  initializeBackgroundFilters()
-  setBackgroundCover(["contain", "cover", "auto"].indexOf(getCss("--background-cover")))
-
+function initializeThemeFilters() {
   const cardColor = document.querySelector("#cardColorInput")
   const overlayColor = document.querySelector("#overlayColorInput")
   const textColor = document.querySelector("#textColorInput")
@@ -232,4 +227,12 @@ function initializeThemes() {
   cardOpacity.onchange = function() {saveSettings()}
   accentOpacity.onchange = function() {saveSettings()}
   cardsWidth.onchange = function() {saveSettings()}
+}
+
+function initializeThemes() {
+  initializeBackground()
+  initializeGlobals()
+  initializeBackgroundFilters()
+  initializeThemeFilters()
+  setBackgroundCover(["contain", "cover", "auto"].indexOf(getCss("--background-cover")))
 }
