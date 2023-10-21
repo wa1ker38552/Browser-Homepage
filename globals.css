@@ -1,8 +1,24 @@
 :root {
-  --accent: #62a6fe;
-  --primary: #454545;
-  --secondary: #3b3b3b;
-  --text: #808080;
-  --background: #333333;
-  --font-family: "Fira Code";
+  --card-color: #ffffff;
+  --background-overlay: #000000;
+  
+  --background-overlay-opacity: 1;
+  --background-overlay-brightness: 1;
+  --background-overlay-saturation: 1;
+  --background-overlay-blur: 0px;
+  
+  --text: #545454;
+  --card-color-r: 255;
+  --card-color-g: 255;
+  --card-color-b: 255;
+  --backdrop-blur: 3px;
+  --accent-opacity: 0.3;
+  
+  --wrapper-width: 40em;
+  --card-opacity: 0.5;
+  --img-filter: invert(29%) sepia(94%) saturate(0%) hue-rotate(226deg) brightness(96%) contrast(101%);
+  --background-cover: cover;
 }
+
+/*background: url("https://wallpapers.com/images/featured/pastel-gradient-background-etu0z7lbeebg6mlf.jpg");*/
+/*background: url("/assets/fantasy.png");*/

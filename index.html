@@ -1,47 +1,120 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Homepage</title>  
-  <link rel="icon" href="assets/icon.png">
-  <link rel="stylesheet" href="globals.css">
-  <link rel="stylesheet" href="style.css">
-  <link id="customStylesheet" rel="stylesheet" href="">
-  <script src="script.js"></script>
-</head>
-<body class="centered-children">
-  <div class="background-overlay" id="overlay"></div>
-  <div class="centered-children" id="modal" style="display: none">
-    <div class="modal">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="Background URL" id="background">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="Stylesheet URL" id="stylesheet">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="Font face" id="fontFace">
-      <textarea autocomplete="off" spellcheck="false" id="linkConfig"></textarea>
-      <div style="display: flex; align-items: center;">
-        <input type="color" id="colorPicker" value="">
-        <div class="color-indicator" id="colorIndicator"></div>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="globals.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="setGlobals.js"></script>
+    <script src="modals.js"></script>
+    <script src="solver.js"></script>
+    <script src="themes.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body class="centered-children">
+    <div id="backgroundColorOverlay"></div>
+    <div id="backgroundOverlay"></div>
+    <div id="modal" style="display: none" class="centered-children">
+      <div class="modal">
+        <div class="title">Settings</div>
+        <div style="display: grid; grid-template-columns: 1fr auto">
+          <input id="backgroundInput" style="border-radius: 5px 0 0 5px" class="settings-input" type="text" placeholder="Background URL" autocomplete="off" spellcheck="false">
+          <button style="border-radius: 0 5px 5px 0" class="settings-input settings-button centered-vertically" onclick="setBackground()">
+            <div class="button-line"></div>Save
+          </button>
+        </div>
+        <div style="display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+          <div class="range-setting">
+            <div class="settings-label">Brightness</div>
+            <input type="range" id="bgBrightness" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Saturation</div>
+            <input type="range" id="bgSaturation" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Opacity</div>
+            <input type="range" id="bgOpacity" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Blur</div>
+            <input type="range" id="bgBlur" min="0" max="10">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto auto auto; grid-gap: 1em" id="backgroundSizeContainer">
+          <button class="settings-input selection-button" onclick="setBackgroundCover(0)">Contain</button>
+          <button class="settings-input selection-button" onclick="setBackgroundCover(1)">Cover</button>
+          <button class="settings-input selection-button selected-background-size" onclick="setBackgroundCover(2)">Auto</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 1em">
+          <div class="centered-vertically" style="position: relative">
+            <div class="settings-label">Card</div>
+            <input type="color" id="cardColorInput">
+          </div>
+          <div class="centered-vertically" style="position: relative">
+            <div class="settings-label">Overlay</div>
+            <input type="color" id="overlayColorInput">
+          </div>
+          <div class="centered-vertically" style="position: relative">
+            <div class="settings-label">Text</div>
+            <input type="color" id="textColorInput">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+          <div class="range-setting">
+            <div class="settings-label">Card Blur</div>
+            <input type="range" id="cardBlur" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Card Opacity</div>
+            <input type="range" id="cardOpacity" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Accent Opacity</div>
+            <input type="range" id="accentOpacity" min="0" max="10">
+          </div>
+          <div class="range-setting">
+            <div class="settings-label">Width</div>
+            <input type="range" id="cardsWidth" min="20" max="60">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+          <button class="settings-input selection-button centered-children" style="gap: 0.5em" onclick="openImpexpModal(0)"><img src="assets/icon_import.png">Import Settings</button>
+          <button class="settings-input selection-button centered-children" style="gap: 0.5em" onclick="openImpexpModal(1)"><img src="assets/icon_export.png">Export Settings</button>
+        </div>
       </div>
-      <div>
-        <button onclick="saveSettings()">Save</button>
-        <button onclick="closeSettingsModal()">Cancel</button>
+    </div>
+
+    <div id="impexpModal" style="display: none" class="centered-children">
+      <div class="modal">
+        <div class="title" id="expinpTitle">Import Settings</div>
+        <textarea id="inpexpText" class="settings-input" spellcheck="false"></textarea>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em" id="importButtons">
+          <button class="settings-input selection-button" onclick="importSettings()">Save</button>
+          <button class="settings-input selection-button" onclick="closeImpexpModal()">Cancel</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr" id="exportButtons">
+          <button class="settings-input selection-button" onclick="copyExport()">Copy</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="wrapper">
-    <div>
-      <span id="time"></span><span id="ampm"></span>
-      <div id="date"></div>
+
+    <div class="wrapper">
+      <div class="card" style="border-radius: 10px 10px 5px 5px">
+        <div id="time">&nbsp;</div>
+        <div id="date">&nbsp;</div>
+      </div>
+      <div class="input-container centered-vertically">
+        <input id="input" style="border-radius: 5px" class="card" type="text" autocomplete="off" spellcheck="false" placeholder="/">
+        <button style="border-radius: 5px; height: 3.2em" class="card centered-vertically" onclick="openSettingsModal()"><img src="assets/flaticon_settings.png"></button>
+      </div>
+      <div id="browserSelect">
+        <div class="card browser-option centered-children selected-browser" onclick="setBrowser(0)">Google <b>G</b></div>
+        <div class="card browser-option centered-children" onclick="setBrowser(1)">Bing <b>B</b></div>
+        <div class="card browser-option centered-children" onclick="setBrowser(2)">DuckDuckGo <b>D</b></div>
+        <div class="card browser-option centered-children" onclick="setBrowser(3)">Brave <b>R</b></div>
+      </div>
+      <div id="bookmarksContainer"></div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 0.5em">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="/" id="search">
-      <button class="settings-button centered-children" onclick="openSettingsModal()"><img class="settings-icon" src="assets/settings.png"></button>
-    </div>
-    <div class="search-options-container">
-      <button onclick="setSearch(0)" class="selected">Google <b>G</b></button>
-      <button onclick="setSearch(1)">Bing <b>B</b></button>
-      <button onclick="setSearch(2)">DuckDuckGo <b>D</b></button>
-      <button onclick="setSearch(3)">Brave <b>R</b></button>
-    </div>
-    <div class="quick-links-container" style="grid-template-columns: repeat(3, 1fr)"></div>
-  </div>
-</body>
+  </body>
 </html>
