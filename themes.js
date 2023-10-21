@@ -151,21 +151,31 @@ function setBackground() {
   loadBackground(document.querySelector("#backgroundInput").value)
 }
 
-function initializeThemes() {
+function initializeBackground() {
   if (localStorage.getItem("background") != null) {
     loadBackground(localStorage.getItem("background"))
     document.querySelector("#backgroundInput").value = localStorage.getItem("background")
   } else {
     loadBackground(DEFAULT_BACKGROUND)
   }
+}
+
+function initializeGlobals() {
   if (localStorage.getItem("settingsData") != null) {
-    let settings = []
     let data = JSON.parse(localStorage.getItem("settingsData"))
-    for (let key in data) {settings.push(data[key])}
-    loadGlobals(settings)
+    let i = 0
+    for (let key in data) {
+      setCss("--"+GLOBAL_VARIABLES[i], data[key])
+      i ++
+    }
   } else {
     loadGlobals(DEFAULT_THEME)
   }
+}
+
+function initializeThemes() {
+  initializeBackground()
+  initializeGlobals()
   initializeBackgroundFilters()
   setBackgroundCover(["contain", "cover", "auto"].indexOf(getCss("--background-cover")))
 
