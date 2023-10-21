@@ -104,7 +104,6 @@ input[type="color"] {
 }
 
 #backgroundOverlay {
-  opacity: var(--background-overlay-opacity);
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -119,7 +118,7 @@ input[type="color"] {
   width: 100vw;
   height: 100vh;
   background: var(--background-overlay);
-  opacity: 0.3;
+  opacity: var(--background-overlay-opacity);
 }
 
 .wrapper {
@@ -334,4 +333,20 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .successful-copy {
   background: var(--text);
   color: rgba(var(--card-color-r), var(--card-color-g), var(--card-color-b), var(--accent-opacity));
+}
+
+.close-button {
+  position: absolute;
+  right: 0em;
+  width: 1em;
+  height: 1em;
+  padding: 0.2em;
+  border-radius: 50%;
+  transition: background 0.3s ease-in-out;
+  cursor: pointer;
+  filter: var(--img-filter);
+}
+
+.close-button:hover {
+  background: rgba(var(--card-color-r), var(--card-color-g), var(--card-color-b),  calc(var(--accent-opacity) + 0.2));
 }
