@@ -9,7 +9,7 @@ v2 is located in `/Legacy/`
 **g** ~ Sets the search engine to Google <br>
 **b** ~ Sets the search engine to Bing <br>
 **d** ~ Sets the search engine to DuckDuckGo <br>
-**** ~ Sets the search engine to Brave <br>
+**b** ~ Sets the search engine to Brave <br>
 **enter** ~ Searches using the selected engine for {keyword} <br>
 **shift+enter** ~ Directly puts the {keyword} into the search bar. (If it doesn't contain https:// it will add it for you) <br>
 **ctrl+x** ~ Toggles settings modal <br>
